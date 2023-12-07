@@ -1,0 +1,21 @@
+apiVersion: backstack.cncf.io/v1alpha1
+kind: EKSCluster
+metadata:
+  name: backstack-demo
+  namespace: default
+spec:
+  parameters:
+    id: backstack-demo
+    region: us-west-2
+    iam:
+      roleArn: arn:aws:iam::845587322796:instance-profile/eks-workshop-admin
+    version: "1.28"
+    nodes:
+      count: 3
+      instanceType: t3.small
+  writeConnectionSecretToRef:
+    name: backstack-demo-kubeconfig
+  publishConnectionDetailsTo:
+    name: backstack-demo/backstack-demo-kubeconfig
+    configRef:
+      name: vault
